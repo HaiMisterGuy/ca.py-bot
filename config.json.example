@@ -1,0 +1,8 @@
+{
+  "token": "mybOTToKENk2oYXKqiZrucvpgengXLeM1zKwsygOuURBK7b4",
+  "client_id": "22394203382034823489",
+  "client_secret": "sECretmNI0236R9boCaiXQ1vF7xe4KNH6iIWsMneBtQ1NtSfQ",
+  "redirect_uri": "https://example.com/oauth",
+  "crt_path": "/path/to/ssl.crt",
+  "key_path": "/path/to/private.key"
+}

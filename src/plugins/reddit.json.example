@@ -1,0 +1,7 @@
+{
+    "client_id": "register your bot at https://www.reddit.com/prefs/apps/",
+    "client_secret": "secret",
+    "user_agent": "bot by /u/reddituser",
+    "username": "reddituser",
+    "password": "hunter2"
+}

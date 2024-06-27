@@ -1,0 +1,18 @@
+[[source]]
+verify_ssl = true
+url = "https://pypi.python.org/simple"
+name = "pypi"
+
+[packages]
+"discord.py" = "*"
+flask = "*"
+requests-oauthlib = "*"
+pylint = "*"
+pyinotify = "*"
+mwclient = "*"
+praw = "==7.0.0"
+pillow = "*"
+emoji = "*"
+pipfile = "*"
+
+[dev-packages]
