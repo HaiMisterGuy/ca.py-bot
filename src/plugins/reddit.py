@@ -57,7 +57,6 @@ def fetch_post(post):
         return None
     else:
         return post
-
 def make_post_url(post):
     return base_url + post.permalink
 
@@ -79,6 +78,14 @@ def embed_oembed(post):
         embed.set_author(name=oembed["provider_name"])
     return embed
 
+def embed_reddit_image(post):
+    embed = Embed()
+    embed.title = post.title
+    embed.url = make_post_url(post)
+    embed.set_author(name="Reddit", url=make_post_url(post))
+    embed.set_image(url=post.url)
+    return embed
+
 def get_post_content(post):
     # some kind of embeddable link post
     if hasattr_oftype(post, "secure_media", dict):
@@ -88,6 +95,10 @@ def get_post_content(post):
         # oembed
         elif "oembed" in post.secure_media and "url" in post.secure_media["oembed"]:
             return embed_oembed(post)
+    # reddit hosted image
+    if hasattr(post, "post_hint"):
+        if post.post_hint == "image":
+            return embed_reddit_image(post)
     # regular link post
     if hasattr(post, "url"):
         return post.url
@@ -115,12 +126,15 @@ Show random post from a subreddit.
     if init_status == INIT_FAIL:
         return
     args = msg.clean_content.split(" ")[1:]
+    #sr = reddit.random_subreddit() if len(args) < 1 else reddit.subreddit(args[0])
+    #try:
+    #    post = sr.random()
+    #except praw.exceptions.ClientException as err:
+    #    print(err)
+    #    post = alt_random_post(sr)
+    #post = fetch_post(post)
     sr = reddit.random_subreddit() if len(args) < 1 else reddit.subreddit(args[0])
-    try:
-        post = sr.random()
-    except praw.exceptions.ClientException as err:
-        print(err)
-        post = alt_random_post(sr)
+    post = alt_random_post(sr)
     post = fetch_post(post)
     if post:
         result = get_post_content(post)

@@ -14,5 +14,6 @@ praw = "==7.0.0"
 pillow = "*"
 emoji = "*"
 pipfile = "*"
+python-dateutil = "*"
 
 [dev-packages]

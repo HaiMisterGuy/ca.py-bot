@@ -2,6 +2,7 @@ import re
 import urllib.request
 import json
 from ..utils import querify
+from dateutil import parser
 from discord import Embed
 
 trigger = re.compile("^!ud")
@@ -43,6 +44,7 @@ Prints the Urban Dictionary definition for _term_."""
         if term:
             embed = Embed()
             embed.set_footer(text=term["example"][:max_embed_footer_length])
+            embed.timestamp = parser.parse(term["written_on"])
             await msg.channel.send(term["definition"], embed=embed)
             #bot.send_message(msg.channel, content=term["definition"], embed=embed)
         else:
