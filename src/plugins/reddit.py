@@ -116,6 +116,17 @@ def alt_random_post(sr):
             i += 1
         rand = rand % i
 
+def nsfw_check(post, msg):
+    # filter nsfw posts on sfw channels
+    # does the over_18 attribute exist?
+    if hasattr(post, "over_18"):
+        # is the reddit post sfw or discord channel nsfw?
+        if post.over_18 == False or msg.channel.nsfw:
+            return False
+        else:
+            return True
+    return False
+
 async def action(bot, msg):
     """**!r** _subreddit_
 Show random post from a subreddit.
@@ -137,12 +148,18 @@ Show random post from a subreddit.
     post = alt_random_post(sr)
     post = fetch_post(post)
     if post:
-        result = get_post_content(post)
-        if isinstance(result, Embed):
-            #await msg.channel.send("sdfsdef")
-            #await msg.channel.send(embed=get_post_content(post))
-            await bot.send_message(msg.channel, embed=result, escape_formatting=False)
+        if nsfw_check(post, msg):
+            try:
+                await bot.send_message(msg.channel, "eyyy " + msg.author.display_name + ", get dat " + args[0] + " shid outta dis christian discord channel", escape_formatting=False)
+            except Exception as e:
+                print(e)
         else:
-            #await msg.channel.send("no")
-            #await msg.channel.send(get_post_content(post))
-            await bot.send_message(msg.channel, result, escape_formatting=False)
+            result = get_post_content(post)
+            if isinstance(result, Embed):
+                #await msg.channel.send("sdfsdef")
+                #await msg.channel.send(embed=get_post_content(post))
+                await bot.send_message(msg.channel, embed=result, escape_formatting=False)
+            else:
+                #await msg.channel.send("no")
+                #await msg.channel.send(get_post_content(post))
+                await bot.send_message(msg.channel, result, escape_formatting=False)
