@@ -54,59 +54,60 @@ def getWeather(place):
                 return weather                    
 
 async def action(bot, msg):
-    weatherResp = getWeather(msg.clean_content)
-    embed = Embed()
+    match = match_pattern.match(msg.clean_content)
+    weatherResp = getWeather(match.groups()[0])
     if isinstance(weatherResp, dict):
+        embed = Embed()
         embed.add_field(
-            "<:earth_africa:1424126880105238638> Location",
-            weatherResp['location'],
-            True
+            name="<:earth_africa:1424126880105238638> Location",
+            value=weatherResp['location'],
+            inline=True
         )
         embed.add_field(
-            "<:straight_ruler:1424128456136069150> Lat/Long",
-            weatherResp['latlong'],
-            True
+            name="<:straight_ruler:1424128456136069150> Lat/Long",
+            value=weatherResp['latlong'],
+            inline=True
         )
         embed.add_field(
-            "☁ Condition",
-            weatherResp['condition'],
-            True
+            name="☁ Condition",
+            value=weatherResp['condition'],
+            inline=True
         )
         embed.add_field(
-            "<:sweat:1424128456136069150> Humidity",
-            weatherResp['humidity'],
-            True
+            name="<:sweat:1424128456136069150> Humidity",
+            value=weatherResp['humidity'],
+            inline=True
         )
         embed.add_field(
-            "<:dash:1424128456136069150> Wind speed",
-            weatherResp['windSpeed'],
-            True
+            name="<:dash:1424128456136069150> Wind speed",
+            value=weatherResp['windSpeed'],
+            inline=True
         )
         embed.add_field(
-            "<:thermometer:1424128456136069150> Temperature",
-            weatherResp['temperature'],
-            True
+            name="<:thermometer:1424128456136069150> Temperature",
+            value=weatherResp['temperature'],
+            inline=True
         )
         embed.add_field(
-            "<:high_brightness:1424128456136069150> Min/Max",
-            weatherResp['minMax'],
-            True
+            name="<:high_brightness:1424128456136069150> Min/Max",
+            value=weatherResp['minMax'],
+            inline=True
         )
         embed.add_field(
-            "<:sunrise_over_mountains:1424128456136069150> Sunrise",
-            weatherResp['sunrise'],
-            True
+            name="<:sunrise_over_mountains:1424128456136069150> Sunrise",
+            value=weatherResp['sunrise'],
+            inline=True
         )
         embed.add_field(
-            "<:city_sunset:1424128456136069150> Sunset",
-            weatherResp['sunset'],
-            True
+            name="<:city_sunset:1424128456136069150> Sunset",
+            value=weatherResp['sunset'],
+            inline=True
         )
         embed.set_footer(
             "Powered by Nadeko uwu Kelbi-kun~~~~~",
             "https://openweathermap.org/img/w/04n.png"
         )
     else:
-        embed.description(weatherResp)
+        embed = Embed(description=weatherResp)
     
     await bot.send_message(msg.channel, embed=embed)
