@@ -104,10 +104,10 @@ async def action(bot, msg):
             inline=True
         )
         embed.set_footer(
-            "Powered by Nadeko uwu Kelbi-kun~~~~~",
-            "https://openweathermap.org/img/w/04n.png"
+            text="Powered by Nadeko uwu Kelbi-kun~~~~~",
+            icon_url="https://openweathermap.org/img/w/04n.png"
         )
     else:
         embed = Embed(description=weatherResp)
     
-    await bot.send_message(msg.channel, embed=embed)
+    await msg.channel.send(embed=embed)
