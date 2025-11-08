@@ -43,9 +43,12 @@ Prints the Urban Dictionary definition for _term_."""
         term = get_term(match.groups()[0])
         if term:
             embed = Embed()
-            embed.set_footer(text=term["example"][:max_embed_footer_length])
+            embed.set_footer(text=term["example"][:max_embed_footer_length] or "¯\\_(ツ)_/¯")
             embed.timestamp = parser.parse(term["written_on"])
-            await msg.channel.send(term["definition"], embed=embed)
+            try:
+                await msg.channel.send(term["definition"], embed=embed)
+            except Exception as err:
+                print(err)
             #bot.send_message(msg.channel, content=term["definition"], embed=embed)
         else:
             await bot.send_message(msg.channel, "¯\\_(ツ)_/¯")

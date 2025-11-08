@@ -118,10 +118,17 @@ def alt_random_post(sr):
 
 def nsfw_check(post, msg):
     # filter nsfw posts on sfw channels
+    args = msg.clean_content.split(" ")[1:]
+
+    # exempt subreddits, use lower case characters only to match successfully
+    exempt = ['chairsunderwater']
+    
     # does the over_18 attribute exist?
     if hasattr(post, "over_18"):
         # is the reddit post sfw or discord channel nsfw?
         if post.over_18 == False or msg.channel.nsfw:
+            return False
+        elif args[0].lower() in exempt:
             return False
         else:
             return True

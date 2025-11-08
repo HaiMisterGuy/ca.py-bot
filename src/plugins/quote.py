@@ -7,7 +7,7 @@ trigger = re.compile("^!quote")
 keywords = ["quote"]
 
 def format_quote(msg):
-    return str(msg.author.name) + ": " + str(msg.content)
+    return str(msg.author.name) + ": " + str(msg.clean_content)
 
 max_log_length = 100
 
